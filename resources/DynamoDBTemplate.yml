@@ -1,0 +1,33 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Template To Create a DynamoDB With GSI
+
+Resources:
+  DynamoDBTable:
+    Type: 'AWS::DynamoDB::Table'
+    Properties:
+      TableName: 'Employee'
+      AttributeDefinitions:
+        - AttributeName: 'employeeId'
+          AttributeType: 'S'
+        - AttributeName: 'jobId'
+          AttributeType: 'S'
+      KeySchema:
+        - AttributeName: 'employeeId'
+          KeyType: 'HASH'
+        - AttributeName: 'jobId'
+          KeyType: 'RANGE'
+      ProvisionedThroughput:
+        ReadCapacityUnits: 1
+        WriteCapacityUnits: 1
+      GlobalSecondaryIndexes:
+        - IndexName: 'jobId-gsi'
+          KeySchema:
+            - AttributeName: 'jobId'
+              KeyType: 'HASH'
+            - AttributeName: 'employeeId'
+              KeyType: 'RANGE'
+          Projection:
+            ProjectionType: 'ALL'
+          ProvisionedThroughput:
+            ReadCapacityUnits: 1
+            WriteCapacityUnits: 1
