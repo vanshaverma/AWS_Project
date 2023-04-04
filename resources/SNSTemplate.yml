@@ -1,0 +1,19 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Template to Create an SNS Topic and Subscriptions
+
+Parameters:
+
+  TopicName:
+    Type: String
+    Description:  Topic Name
+    Default: myTopic
+
+Resources:
+
+ MySNSTopic: 
+   Type: AWS::SNS::Topic
+   Properties: 
+     Subscription: 
+       - Endpoint: "v.vansha15@gmail.com"
+         Protocol: "email"
+     TopicName: !Ref TopicName
